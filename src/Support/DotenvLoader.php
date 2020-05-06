@@ -5,7 +5,8 @@ namespace ByTIC\Dotenv\Support;
 use ByTIC\Dotenv\HasEnv\HasEnviroment;
 use Dotenv\Dotenv;
 use Dotenv\Exception\InvalidFileException;
-
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
  * Class DotenvLoader
@@ -19,6 +20,8 @@ class DotenvLoader
      */
     public static function safeLoad($app)
     {
+        static::checkForSpecificEnvironmentFile($app);
+
         try {
             static::createDotenv($app)->safeLoad();
         } catch (InvalidFileException $e) {
@@ -27,10 +30,37 @@ class DotenvLoader
     }
 
     /**
+     * Detect if a custom environment file matching the APP_ENV exists.
+     *
+     * @param HasEnviroment $app
+     * @return void
+     */
+    protected static function checkForSpecificEnvironmentFile($app)
+    {
+        if (method_exists($app, 'runningInConsole') && $app->runningInConsole()) {
+            if (($input = new ArgvInput())->hasParameterOption('--env')) {
+                if ($app->checkLoadEnvironmentFilePath(
+                    $app->environmentFile() . '.' . $input->getParameterOption('--env')
+                )) {
+                    return;
+                }
+            }
+        }
+
+        $environment = Env::get('APP_ENV');
+
+        if (!$environment) {
+            return;
+        }
+
+        $app->checkLoadEnvironmentFilePath($app->environmentFile() . '.' . $environment);
+    }
+
+    /**
      * Create a Dotenv instance.
      *
      * @param HasEnviroment $app
-     * @return \Dotenv\Dotenv
+     * @return Dotenv
      */
     protected static function createDotenv($app)
     {
@@ -48,12 +78,10 @@ class DotenvLoader
      */
     protected static function writeErrorAndDie(InvalidFileException $e)
     {
-//        $output = (new ConsoleOutput)->getErrorOutput();
-//
-//        $output->writeln('The environment file is invalid!');
-//        $output->writeln($e->getMessage());
+        $output = (new ConsoleOutput())->getErrorOutput();
 
-        echo $e->getMessage();
+        $output->writeln('The environment file is invalid!');
+        $output->writeln($e->getMessage());
 
         die(1);
     }

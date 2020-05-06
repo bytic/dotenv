@@ -46,6 +46,23 @@ trait HasDotenvConfiguration
     }
 
     /**
+     * Load a custom environment file.
+     *
+     * @param  string  $file
+     * @return bool
+     */
+    protected function checkLoadEnvironmentFilePath( $file)
+    {
+        if (file_exists($this->environmentPath().'/'.$file)) {
+            $this->loadEnvironmentFrom($file);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Set the directory for the environment file.
      *
      * @param  string $path
