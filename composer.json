@@ -1,0 +1,32 @@
+{
+  "name": "bytic/dotenv",
+  "license": "MIT",
+  "description": "bytic dotenv wrapper",
+  "authors": [
+    {
+      "name": "Gabriel Solomon",
+      "email": "hello@gabrielsolomon.ro"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ByTIC\\Dotenv\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ByTIC\\Dotenv\\Tests\\Fixtures\\": "tests/fixtures",
+      "ByTIC\\Dotenv\\Tests\\": "tests/src"
+    }
+  },
+  "require": {
+    "php": "^7.2",
+    "bytic/utility": "^1.0",
+    "vlucas/phpdotenv": "^4.0",
+    "phpoption/phpoption": "^1.7"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.2|^8.0|^9.0",
+    "mockery/mockery": "^1.0"
+  }
+}
