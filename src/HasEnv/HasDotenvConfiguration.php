@@ -51,7 +51,7 @@ trait HasDotenvConfiguration
      * @param  string  $file
      * @return bool
      */
-    protected function checkLoadEnvironmentFilePath( $file)
+    public function checkLoadEnvironmentFilePath( $file)
     {
         if (file_exists($this->environmentPath().'/'.$file)) {
             $this->loadEnvironmentFrom($file);
