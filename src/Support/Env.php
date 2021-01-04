@@ -58,15 +58,11 @@ class Env
     public static function getRepository()
     {
         if (static::$repository === null) {
-            $adapters = array_merge(
-                [new EnvConstAdapter, new ServerConstAdapter],
-                static::$putenv ? [new PutenvAdapter] : []
-            );
-
-            static::$repository = RepositoryBuilder::create()
-                ->withReaders($adapters)
-                ->withWriters($adapters)
+            static::$repository = RepositoryBuilder::createWithNoAdapters()
                 ->immutable()
+                ->addAdapter(EnvConstAdapter::class)
+                ->addAdapter(ServerConstAdapter::class)
+                ->addWriter(PutenvAdapter::class)
                 ->make();
         }
 
