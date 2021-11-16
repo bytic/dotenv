@@ -79,7 +79,7 @@ trait HasDotenvConfiguration
      *
      * @return string
      */
-    public function environmentFile()
+    public function environmentFile(): string
     {
         return $this->environmentFile ?: '.env';
     }

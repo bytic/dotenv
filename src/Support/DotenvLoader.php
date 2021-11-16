@@ -3,10 +3,11 @@
 namespace ByTIC\Dotenv\Support;
 
 use ByTIC\Dotenv\HasEnv\HasEnviroment;
-use Dotenv\Dotenv;
-use Dotenv\Exception\InvalidFileException;
+use Nip\Utility\Env;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Dotenv\Exception\ExceptionInterface;
 
 /**
  * Class DotenvLoader
@@ -23,8 +24,8 @@ class DotenvLoader
         static::checkForSpecificEnvironmentFile($app);
 
         try {
-            static::createDotenv($app)->safeLoad();
-        } catch (InvalidFileException $e) {
+            static::createDotenv($app);
+        } catch (ExceptionInterface $e) {
             static::writeErrorAndDie($e);
         }
     }
@@ -60,23 +61,19 @@ class DotenvLoader
      * Create a Dotenv instance.
      *
      * @param HasEnviroment $app
-     * @return Dotenv
      */
     protected static function createDotenv($app)
     {
-        return Dotenv::create(
-            Env::getRepository(),
-            $app->environmentPath(),
-            $app->environmentFile()
-        );
+        (new Dotenv())
+            ->bootEnv($app->environmentFilePath());
     }
+
     /**
      * Write the error information to the screen and exit.
      *
-     * @param  \Dotenv\Exception\InvalidFileException  $e
      * @return void
      */
-    protected static function writeErrorAndDie(InvalidFileException $e)
+    protected static function writeErrorAndDie(ExceptionInterface $e)
     {
         $output = (new ConsoleOutput())->getErrorOutput();
 

@@ -17,6 +17,10 @@ class DotenvLoaderTest extends AbstractTest
         $application = new Application();
         DotenvLoader::safeLoad($application);
 
-        static::assertSame('foe', getenv('TEST_STRING'));
+        static::assertSame('foe', env('TEST_STRING'));
+        static::assertEmpty( env('TEST_EMPTY'));
+
+        static::assertSame('foe-var', env('TEST_VAR'));
+        static::assertSame('rootpass', env('TEST_VAR_DEFAULT'));
     }
 }
