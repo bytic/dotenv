@@ -1,3 +1,5 @@
 # Dotenv
+Wrapper for symfony/dotenv
 
-Wrapper for vlucas/phpdotenv based on laravel approach
+#### Inspiration
+* https://github.com/sroze/companienv
