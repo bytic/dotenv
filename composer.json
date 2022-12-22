@@ -1,13 +1,23 @@
 {
   "name": "bytic/dotenv",
-  "license": "MIT",
   "description": "bytic dotenv wrapper",
+  "license": "MIT",
   "authors": [
     {
       "name": "Gabriel Solomon",
       "email": "hello@gabrielsolomon.ro"
     }
   ],
+  "require": {
+    "bytic/utility": "^1.0",
+    "symfony/dotenv": "^5.0 || ^6.0"
+  },
+  "require-dev": {
+    "bytic/phpqatools": "^1.0",
+    "symfony/console": "^4.0 || ^5.0 || ^6.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "ByTIC\\Dotenv\\": "src/"
@@ -19,16 +29,6 @@
       "ByTIC\\Dotenv\\Tests\\": "tests/src"
     }
   },
-  "require": {
-    "bytic/utility": "^1.0",
-    "symfony/dotenv": "^5.0|^6.0"
-  },
-  "require-dev": {
-    "bytic/phpqatools": "^1.0",
-    "symfony/console": "^4.0|^5.0|^6.0"
-  },
-  "prefer-stable": true,
-  "minimum-stability": "dev",
   "config": {
     "allow-plugins": {
       "phpstan/extension-installer": true,

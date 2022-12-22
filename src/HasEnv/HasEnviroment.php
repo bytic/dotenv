@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Dotenv\HasEnv;
 
 /**
- * Trait HasEnviroment
- * @package ByTIC\Dotenv
+ * Trait HasEnviroment.
  */
 trait HasEnviroment
 {

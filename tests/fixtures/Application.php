@@ -1,19 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Dotenv\Tests\Fixtures;
 
 use ByTIC\Dotenv\HasEnv\HasEnviroment;
 
 /**
- * Class Application
- * @package ByTIC\Dotenv\Tests\Fixtures
+ * Class Application.
  */
 class Application
 {
     use HasEnviroment;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function environmentPathGeneric()
     {

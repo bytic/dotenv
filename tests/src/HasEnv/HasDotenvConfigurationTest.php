@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Dotenv\Tests\HasEnv;
 
 use ByTIC\Dotenv\Tests\AbstractTest;
 use ByTIC\Dotenv\Tests\Fixtures\Application;
 
 /**
- * Class HasDotenvConfigurationTest
- * @package ByTIC\Dotenv\Tests\HasEnv
+ * Class HasDotenvConfigurationTest.
  */
 class HasDotenvConfigurationTest extends AbstractTest
 {
-    public function test_has_dotenv_configuration()
+    public function testHasDotenvConfiguration()
     {
         $application = new Application();
         static::assertSame(TEST_FIXTURE_PATH . '/.env', $application->environmentFilePath());

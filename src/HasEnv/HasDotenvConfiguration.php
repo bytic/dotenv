@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Dotenv\HasEnv;
 
 /**
- * Trait HasDotenvConfiguration
- * @package ByTIC\Dotenv
+ * Trait HasDotenvConfiguration.
  */
 trait HasDotenvConfiguration
 {
@@ -14,7 +15,6 @@ trait HasDotenvConfiguration
      * @var string
      */
     protected $environmentFile = '.env';
-
 
     /**
      * The custom environment path defined by the developer.
@@ -36,24 +36,27 @@ trait HasDotenvConfiguration
     /**
      * Set the environment file to be loaded during bootstrapping.
      *
-     * @param  string $file
+     * @param string $file
+     *
      * @return $this
      */
     public function loadEnvironmentFrom($file)
     {
         $this->environmentFile = $file;
+
         return $this;
     }
 
     /**
      * Load a custom environment file.
      *
-     * @param  string  $file
+     * @param string $file
+     *
      * @return bool
      */
-    public function checkLoadEnvironmentFilePath( $file)
+    public function checkLoadEnvironmentFilePath($file)
     {
-        if (file_exists($this->environmentPath().'/'.$file)) {
+        if (file_exists($this->environmentPath() . '/' . $file)) {
             $this->loadEnvironmentFrom($file);
 
             return true;
@@ -65,19 +68,19 @@ trait HasDotenvConfiguration
     /**
      * Set the directory for the environment file.
      *
-     * @param  string $path
+     * @param string $path
+     *
      * @return $this
      */
     public function useEnvironmentPath($path)
     {
         $this->environmentPath = $path;
+
         return $this;
     }
 
     /**
      * Get the environment file the application is using.
-     *
-     * @return string
      */
     public function environmentFile(): string
     {

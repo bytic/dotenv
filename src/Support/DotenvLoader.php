@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Dotenv\Support;
 
 use ByTIC\Dotenv\HasEnv\HasEnviroment;
@@ -10,12 +12,10 @@ use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Dotenv\Exception\ExceptionInterface;
 
 /**
- * Class DotenvLoader
- * @package ByTIC\Dotenv\HasEnv\Support
+ * Class DotenvLoader.
  */
 class DotenvLoader
 {
-
     /**
      * @param HasEnviroment $app
      */
@@ -34,6 +34,7 @@ class DotenvLoader
      * Detect if a custom environment file matching the APP_ENV exists.
      *
      * @param HasEnviroment $app
+     *
      * @return void
      */
     protected static function checkForSpecificEnvironmentFile($app)
@@ -80,6 +81,6 @@ class DotenvLoader
         $output->writeln('The environment file is invalid!');
         $output->writeln($e->getMessage());
 
-        die(1);
+        exit(1);
     }
 }
