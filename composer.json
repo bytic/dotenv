@@ -9,12 +9,14 @@
     }
   ],
   "require": {
+    "php": "^7.2.5 || ^8.0",
     "bytic/utility": "^1.0",
-    "symfony/dotenv": "^5.0 || ^6.0 || ^7.0"
+    "symfony/console": "^5.0 || ^6.0 || ^7.0 || ^8.0",
+    "symfony/dotenv": "^5.0 || ^6.0 || ^7.0 || ^8.0"
   },
   "require-dev": {
-    "bytic/phpqatools": "^1.0",
-    "symfony/console": "^5.0 || ^6.0 || ^7.0"
+    "friendsofphp/php-cs-fixer": "^2.19 || ^3.0",
+    "phpunit/phpunit": "^8.5 || ^9.6"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -27,14 +29,6 @@
     "psr-4": {
       "ByTIC\\Dotenv\\Tests\\Fixtures\\": "tests/fixtures",
       "ByTIC\\Dotenv\\Tests\\": "tests/src"
-    }
-  },
-  "config": {
-    "allow-plugins": {
-      "phpstan/extension-installer": true,
-      "ergebnis/composer-normalize": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "bytic/phpqatools": true
     }
   }
 }
