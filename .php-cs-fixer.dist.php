@@ -2,14 +2,9 @@
 
 declare(strict_types=1);
 
-use function Bytic\Phpqa\PhpCsFixer\config;
-use function Bytic\Phpqa\PhpCsFixer\finder;
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
 
-return config(
-    finder(
-        [
-            __DIR__ . '/src',
-            __DIR__ . '/tests',
-        ]
-    )
-);
+return (new Config())
+    ->setRules(['@Symfony' => true])
+    ->setFinder((new Finder())->in([__DIR__ . '/src', __DIR__ . '/tests']));

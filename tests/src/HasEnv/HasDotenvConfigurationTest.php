@@ -17,4 +17,15 @@ class HasDotenvConfigurationTest extends AbstractTest
         $application = new Application();
         static::assertSame(TEST_FIXTURE_PATH . '/.env', $application->environmentFilePath());
     }
+
+    public function testCustomFileAndPathRemainChainable()
+    {
+        $application = new Application();
+
+        static::assertSame($application, $application->useEnvironmentPath(TEST_FIXTURE_PATH));
+        static::assertSame($application, $application->loadEnvironmentFrom('.env.compat-app'));
+        static::assertSame(TEST_FIXTURE_PATH . '/.env.compat-app', $application->environmentFilePath());
+        static::assertFalse($application->checkLoadEnvironmentFilePath('.env.missing'));
+        static::assertSame('.env.compat-app', $application->environmentFile());
+    }
 }

@@ -65,8 +65,29 @@ class DotenvLoader
      */
     protected static function createDotenv($app)
     {
-        (new Dotenv())
-            ->bootEnv($app->environmentFilePath());
+        $dotenv = new Dotenv();
+        $path = $app->environmentFilePath();
+
+        if (method_exists($dotenv, 'bootEnv')) {
+            $dotenv->bootEnv($path);
+
+            return;
+        }
+
+        // Symfony 5.0 predates bootEnv(); preserve its default boot behavior.
+        $compiledPath = $path . '.local.php';
+        $compiled = is_file($compiledPath) ? include $compiledPath : null;
+        $currentEnvironment = $_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] ?? null;
+
+        if (is_array($compiled) && (!isset($compiled['APP_ENV']) || $currentEnvironment === null || $currentEnvironment === $compiled['APP_ENV'])) {
+            $dotenv->populate($compiled);
+        } else {
+            $dotenv->loadEnv($path);
+        }
+
+        $_SERVER += $_ENV;
+        $debug = $_SERVER['APP_DEBUG'] ?? ($_SERVER['APP_ENV'] !== 'prod');
+        $_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = (int) $debug || (!is_bool($debug) && filter_var($debug, FILTER_VALIDATE_BOOLEAN)) ? '1' : '0';
     }
 
     /**
